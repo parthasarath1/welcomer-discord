@@ -68,6 +68,20 @@ client.on("guildMemberAdd", async (member) => {
   const disE = ">";
   const eS = " ";
 
+  const dmE = new Discord.MessageEmbed()
+    .setAuthor(`Welcome To Apex Mobile India Server`)
+    .setFooter(`hope you Have Good Times With Us`)
+    .setThumbnail("https://i.ibb.co/pRb26gS/logo.png")
+    .setDescription(
+      `First of All Thanks For Joining Us, I Think By This Time You Have Verified Your Self, if yes Thank you So Much Now You will be ready to Explore different parts Of the server, if Not Please Verify Yourself and get access to the server, BTW you can extend your support by following us on out Social Media.`
+    )
+    .setColor("#00ffff")
+    .addFields({
+      name: `Follow Us on SOCIAL MEDIA`,
+      value: `
+        ${disE} **Youtube :** [Click Here](https://www.youtube.com/channel/UC7ErOML9nVcBlXKnbAQoqVQ/)
+        ${disE} **Instagram :** [Click Here](https://www.instagram.com/apexmindia/)`,
+    });
   welcomeChannel.send(
     `
 ${disE} Hey <@${member.id}>,
@@ -85,6 +99,32 @@ ${disE} Have A Great Time!
     `,
     attachment
   );
+  await member
+    .send(dmE)
+    .then(member.send(`-Sent form Apex Mobile Discord Server.`));
 });
 
+client.on("guildMemberRemove", async (member) => {
+  const channelId = config.leave.channelId;
+  const leaveChannel = member.guild.channels.cache.get(channelId);
+
+  const byeE = new Discord.MessageEmbed()
+    .setColor("#00ffff")
+    .setAuthor(`Bye Bye`)
+    .setDescription(
+      `
+    <@${member.user.id}> Has just left the server,
+    
+    user id : ${member.user.id}`
+    )
+    .setThumbnail(member.user.displayAvatarURL())
+    .setTimestamp();
+  leaveChannel
+    .send(byeE)
+    .then(
+      member.user.send(
+        `you Have just Left Apex Mobile India Server , Hope You had a Good Time. `
+      )
+    );
+});
 client.login(process.env.TOKEN);
