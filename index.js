@@ -12,6 +12,12 @@ client.on("ready", () => {
   console.log("Welcomer Ready");
 });
 
+client.on("message", (message) => {
+  if (message.channel.type === "dm") {
+    return;
+  }
+});
+
 client.on("guildMemberAdd", async (member) => {
   console.log("joined");
   const wecomeChannelID = config.channelId;
